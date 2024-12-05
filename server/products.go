@@ -2,9 +2,7 @@ package server
 
 import (
 	"context"
-	"encoding/json"
 	"net/http"
-	"strconv"
 
 	"github.com/gorilla/mux"
 )
@@ -15,31 +13,26 @@ func (s *Server) ListProducts(w http.ResponseWriter, r *http.Request) {
 	// Get the limit and page variable from query parameters
 	limit := r.URL.Query().Get("limit") // Example: "10"
 	page := r.URL.Query().Get("page")   // Example: "1"
+	// parse limit
 
-	limitInt, err := strconv.Atoi(limit)
-	if err != nil {
-		http.Error(w, "Invalid limit parameter", http.StatusBadRequest)
+	limitInt, valid := parseQueryParamToInt(limit, w)
+	if !valid {
 		return
 	}
-	pageInt, err := strconv.Atoi(page)
-	if err != nil {
-		http.Error(w, "Invalid page parameter", http.StatusBadRequest)
+	pageInt, valid := parseQueryParamToInt(page, w)
+	if !valid {
 		return
 	}
 
 	// Fetch products from the database
 	products, err := s.DBClient.ListProducts(ctx, limitInt, pageInt) // Call the database function
 	if err != nil {
-		http.Error(w, "Failed to retrieve products", http.StatusInternalServerError) // Handle error
+		writeJSONResponse(w, http.StatusInternalServerError, "Failed to retrieve products") // Handle error
 		return
 	}
 
 	// Write the products to the response
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	if err := json.NewEncoder(w).Encode(products); err != nil {
-		http.Error(w, "Failed to encode products", http.StatusInternalServerError) // Handle encoding error
-	}
+	writeJSONResponse(w, http.StatusOK, products)
 }
 
 func (s *Server) GetProductById(w http.ResponseWriter, r *http.Request) {
@@ -51,14 +44,10 @@ func (s *Server) GetProductById(w http.ResponseWriter, r *http.Request) {
 	// get the product from db by product id
 	product, err := s.DBClient.GetProductById(ctx, productId) // Call the database function
 	if err != nil {
-		http.Error(w, "Product not found", http.StatusNotFound) // Handle error
+		writeJSONResponse(w, http.StatusNotFound, "Product not found") // Handle error
 		return
 	}
 
 	// Write the product to the response
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	if err := json.NewEncoder(w).Encode(product); err != nil {
-		http.Error(w, "Failed to encode product", http.StatusInternalServerError) // Handle encoding error
-	}
+	writeJSONResponse(w, http.StatusOK, product)
 }

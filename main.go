@@ -4,7 +4,6 @@ import (
 	"github.com/aakash-tyagi/kart-challenge/config"
 	"github.com/aakash-tyagi/kart-challenge/db"
 	"github.com/aakash-tyagi/kart-challenge/server"
-
 	"github.com/sirupsen/logrus"
 )
 

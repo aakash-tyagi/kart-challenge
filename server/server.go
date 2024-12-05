@@ -37,6 +37,7 @@ func (s *Server) Start() {
 	http.Handle("/", r)
 	s.Logger.Info("Starting server on port 8080")
 	if err := http.ListenAndServe(":8080", nil); err != nil {
+		// TODO: take port from env
 		s.Logger.Fatal(err)
 	}
 
