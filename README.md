@@ -1,86 +1,119 @@
-# Shopping Cart
+# Kart Challenge
 
-Build a mini food ordering web app featuring product listing and a functional shopping cart.\
-Prioritize correctness in functionality while getting it to look as close to the design as possible.
+A Golang-based project developed to tackle the karting challenge. This repository demonstrates efficient use of Go for solving a problem of validation coupon code, with large files with clarity and scalability.
 
-For this task you will need to integrate to our demo e-commerce API for listing products and placing orders.
+---
 
-**API Reference**
+## Prerequisites
 
-You can find our [API Documentation](https://orderfoodonline.deno.dev/public/openapi.html) here.
+Ensure you have the following installed on your system:
 
-API documentation is based on [OpenAPI3.1](https://swagger.io/specification/v3/) specification.
-You can also find spec file [here](https://orderfoodonline.deno.dev/public/openapi.yaml).
- 
-**Functional Requirements**
+- **Golang**: Version 1.18 or higher
+- **Git**: To clone the repository
 
-- Display products with images
-- Add items to the cart and remove items
-- Show order total correctly
-- Increase or decrease item count in the cart
-- Show order confirmation after placing the order
-- Interactive hover and focus states for elements
+---
 
-**Bonus Goals**
+## Setup and Installation
 
-- Allow users to enter a discount code (above the "Confirm Order" button)
-- Discount code `HAPPYHOURS` applies 18% discount to the order total
-- Discount code `BUYGETONE` gives the lowest priced item for free
-- Responsive design based on device's screen size
+Follow these steps to set up and run the project locally:
 
-**Are You a Full Stack Developer??**
+1. **Clone the Repository**:
+    ```bash
+    git clone https://github.com/aakash-tyagi/kart-challenge.git
+    cd kart-challenge
+    ```
 
-Impress us by implementing your own version of the API based on the OpenAPI specification.\
-Choose any language or framework of your choice. For example our top pick for backend is [Go](https://go.dev)
+2. **Install Dependencies**:
+    ```bash
+    go mod tidy
+    ```
 
-> The API immplementation example available to you at orderfoodonline.deno.dev/api is simplified and doesn't handle some edge cases intentionally.
-> Use your best judgement to build a Robust API server.
+---
+**Important Note**
 
-## Design
+Due to some technical difficulties, I was unable to download the provided challenge files. As a workaround, I utilized my own files to complete the assignment. Please find attached screenshots of issue I faced, while downloading file:
 
-You can find a [Figma](https://figma.com) design file `design.fig` that you can use.
-You might have to use your best judgement for some mobile layout designs and spacing.
+![Screenshot of the issue, while downloading file](./screenshot/ErrorSS.png)
 
-### Style Guide
+Please let me know, if something doesn't works with my code and with orignal files, I can update code, according to files
+(which you can provide me on google drive also), for maximum efficiency and according to the formatting of text.
 
-The designs were created to the following widths:
+Hope it works, with out any changes required.
+---
 
-- Mobile: 375px
-- Desktop: 1440px
+## How to Run
 
-> 💡 These are just the design sizes. Ensure content is responsive and meets WCAG requirements by testing the full range of screen sizes from 320px to large screens.
+1. **Start the Server**:
+    ```bash
+    go run main.go
+    ```
 
-**Typography**
+2. **Access the Application**:
+    - The server will be running at `http://localhost:8080` by default.
 
-- Font size (product names): 16px
+---
 
-### Font
+## API Endpoints
 
-- Family: [Red Hat Text](https://fonts.google.com/specimen/Red+Hat+Text)
-- Weights: 400, 600, 700
+### Base URL:
+`http://localhost:8080`
 
-## Getting Started
+### Endpoints:
 
-Feel free to use any tool or workflow ou are comformtable with.\
-Here is an example workflow (you can use it as a reference or use your own workflow)
+#### 1. **GET /api/v1/product**
+- **Description**: List all products with pagination.
+- **cURL Command**:
+    ```bash
+    curl --location 'localhost:8080/api/v1/product?limit=10&page=1' \
+         --header 'Authorization: AUTH_TOKEN'
+    ```
 
-1. Create a new public repository on [GitHub](https://github.com) (alternatively you can use GitLab, BitBucket or Git server of your choice).
-   If you are creating your repository on GitHub, you can chose to use this repository as a starting template. (Click on Use template button at the top)
-2. Look through the deisngs to plan your project. This will help you design UI libraries or tools.
-3. Create a [Vite](https://vite.dev) app to bootstrap a modern front-end project (alternatively use the framework of your choice).
-4. Structure your HTML and preview before theming and adding interactive functionality.
-5. Test and Iterate to build more features
-6. Deploy your app anywhere securely. You may use AWS, Vercel, Deno Deploy, Surge, CloudFlare Pages or some other web app deployment services.
-7. Additionally configure your repository to automatically publish your app on new commit push (CI).
 
-> 💡 Replace or Modify this README to explain your solution and how to run and test it.
+#### 2. **GET /api/v1/product/{id}**
+- **Description**: Fetch a product by its ID.
+- **cURL Command**:
+    ```bash
+    curl --location 'localhost:8080/api/v1/product/6755cd19c81abe9c83b204c2' \
+         --header 'Authorization: AUTH_TOKEN'
+    ```
 
-_By following these guidelines, you should be able to build a functional and visually appealing mini e-commerce shopping portal that meets the minimum requirements and bonus goals. Good luck! 🚀_
 
-**Resources**
+#### 3. **POST /api/v1/order**
+- **Description**: Add a new order with multiple items.
+- **cURL Command**:
+    ```bash
+    curl --location 'localhost:8080/api/v1/order' \
+         --header 'Authorization: AUTH_TOKEN' \
+         --header 'Content-Type: application/json' \
+         --data '{
+             "couponCode":"HAPPYHOURS",
+             "items": [
+                 {
+                     "productId":"6755cd19c81abe9c83b204c2",
+                     "quantity":2
+                 },
+                 {
+                     "productId":"6755cd4ac81abe9c83b204c5",
+                     "quantity":2
+                 }
+             ]
+         }'
+    ```
 
-- API documentation: https://orderfoodonline.deno.dev/public/openapi.html
-- API specification: https://orderfoodonline.deno.dev/public/openapi.yaml
-- Figma design file: [design.fig](./design.fig)
-- Red Hat Text font: https://fonts.google.com/specimen/Red+Hat+Text
+---
+
+## Features
+
+- RESTful API for managing kart records
+- Efficient and scalable Golang implementation, to work with large files
+- Clear structure following Go best practices
+
+---
+
+
+## Contact
+
+Maintained by [Aakash Tyagi](tyagi01aakash@gmail.com). Feel free to reach out for questions or collaboration opportunities.
+
+
 
