@@ -29,6 +29,7 @@ func main() {
 	s := server.New(
 		dbClient,
 		logger,
+		config,
 	)
 
 	// Start the HTTP server

@@ -1,9 +1,12 @@
 package server
 
 import (
+	"bufio"
 	"encoding/json"
 	"net/http"
+	"os"
 	"strconv"
+	"strings"
 )
 
 func parseQueryParamToInt(param string, w http.ResponseWriter) (int, bool) {
@@ -22,4 +25,21 @@ func writeJSONResponse(w http.ResponseWriter, status int, data interface{}) {
 	if err := json.NewEncoder(w).Encode(data); err != nil {
 		http.Error(w, "Failed to encode response", http.StatusInternalServerError) // Handle encoding error
 	}
+}
+
+func searchInFile(filePath, target string) (bool, error) {
+	file, err := os.Open(filePath)
+	if err != nil {
+		return false, err
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		if strings.Contains(scanner.Text(), target) {
+			return true, nil
+		}
+	}
+
+	return false, scanner.Err()
 }

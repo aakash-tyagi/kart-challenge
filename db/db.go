@@ -2,7 +2,6 @@ package db
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/aakash-tyagi/kart-challenge/config"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -34,6 +33,5 @@ func (db *Db) Connect() error {
 
 	mongoClient := client.Database(db.Config.DatabaseName)
 	db.MongoClient = mongoClient
-	fmt.Println("Database connected")
 	return nil
 }
