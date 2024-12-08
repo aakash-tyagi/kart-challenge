@@ -33,7 +33,7 @@ Follow these steps to set up and run the project locally:
 
 Due to some technical difficulties, I was unable to download the provided challenge files. As a workaround, I utilized my own files to complete the assignment. Please find attached screenshots of issue I faced, while downloading file:
 
-![Screenshot of the issue, while downloading file](./screenshots/ErrorSS.png)
+![Screenshot of the issue, while downloading file](./screenshot/ErrorSS.png)
 
 Please let me know, if something doesn't works with my code and with orignal files, I can update code, according to files
 (which you can provide me on google drive also), for maximum efficiency and according to the formatting of text.
